@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{user.first_name}} {{user.last_name}}'s Profile</h1>
+    <p>Username: {{user.username}}</p>
+    <p> Email: {{user.email}}</p>
+
+    <h2>
+        Feedback 
+        <form style="display: inline;" action="/users/{{user.username}}/feedback/add">
+        <button class="btn btn-info btn-sm">Add</button>
+        </form>
+    </h2>
+    {% for f in user.feedbacks %}
+    <div class="card my-4">
+        <div class="card-body">
+            <h3 class="card-title">
+                {{f.title}}
+            </h3>
+            <p>{{f.content}}</p>
+            {% if session['user'] == f.user.username %}
+            <form style="display: inline;" action="/feedback/{{f.id}}/update">
+                <button class="btn btn-sm btn-info">Edit</button>
+            </form>
+            <form style="display: inline;" action="/feedback/{{f.id}}/delete" method="POST">
+                <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if session['user'] == user.username %}
+    <form class="text-center fixed-bottom" action="/users/{{user.username}}/delete" method="POST">
+        <a class="text-danger text-center">Delete User</a>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
