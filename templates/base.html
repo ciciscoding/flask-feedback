@@ -7,6 +7,30 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container">
+        <a href="/" class="text-light navbar-brand">Feedback</a>
+            <div class="collaspe navbar-collaspe">
+                <ul class="navbar-nav flew-row float-right">
+                    {% if 'user' not in session %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/">Sign up</a>
+                        </li>
+                    {% endif %}
+
+                    {% if 'user' in session %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/logout">Logout</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container" style="margin-top: 2em;">
         {% for category, msg in get_flashed_messages(with_categories=True) %}
         <div class="alert alert-{{category}}">{{msg}}</div>

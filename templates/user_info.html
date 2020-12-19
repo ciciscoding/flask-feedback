@@ -9,9 +9,11 @@
 
     <h2>
         Feedback 
-        <form style="display: inline;" action="/users/{{user.username}}/feedback/add">
-        <button class="btn btn-info btn-sm">Add</button>
-        </form>
+        {% if session['user'] == user.username %}
+            <form style="display: inline;" action="/users/{{user.username}}/feedback/add">
+            <button class="btn btn-info btn-sm">Add</button>
+            </form>
+        {% endif %}
     </h2>
     {% for f in user.feedbacks %}
     <div class="card my-4">
@@ -34,7 +36,7 @@
 
     {% if session['user'] == user.username %}
     <form class="text-center fixed-bottom" action="/users/{{user.username}}/delete" method="POST">
-        <a class="text-danger text-center">Delete User</a>
+        <button class="text-danger text-center btn btn-link" type="submit">Delete User</button>
     </form>
     {% endif %}
 </div>
