@@ -20,7 +20,6 @@ toolbar = DebugToolbarExtension(app)
 @app.route('/')
 def show_users():
     if "user" not in session:
-        flash('Please login first!', 'danger')
         return redirect('/register')
     else:
         users = User.query.all()
