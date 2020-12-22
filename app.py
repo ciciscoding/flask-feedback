@@ -18,8 +18,13 @@ toolbar = DebugToolbarExtension(app)
 
 
 @app.route('/')
-def go_to_register():
-    return redirect('/register')
+def show_users():
+    if "user" not in session:
+        flash('Please login first!', 'danger')
+        return redirect('/register')
+    else:
+        users = User.query.all()
+        return render_template('users.html', users=users)
 
 @app.route('/register')
 def show_register_form():

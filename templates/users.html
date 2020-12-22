@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}All Users{% endblock %}
+{% block content %}
+<h1>All Users</h1>
+{% for user in users %}
+<div class="card my-4">
+    <div class="card-body">
+        <h2 class="card-title">
+            {{user.first_name}} {{user.last_name}}
+        </h2>
+        <p>Go to <a href="/users/{{user.username}}">{{user.username}}</a> profile</p>
+        <h3>Feedback from {{user.first_name}}</h3>
+        <ol>
+            {% for feedback in user.feedbacks %}
+                <li>{{feedback.title}}</li>
+            {% endfor %}
+        </ol> 
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
